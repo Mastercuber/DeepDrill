@@ -234,22 +234,22 @@ DrillMap::updateTextures()
 
     if (iterationMapTex.getSize() != sf::Vector2u(w, h)) {
 
-        if (!iterationMapTex.create(unsigned(width), unsigned(height))) {
+        if (!iterationMapTex.resize(sf::Vector2u(static_cast<unsigned>(width), static_cast<unsigned>(height)))) {
             throw Exception("Can't create iteration map texture");
         }
-        if (!overlayMapTex.create(unsigned(width), unsigned(height))) {
+        if (!overlayMapTex.resize(sf::Vector2u(static_cast<unsigned>(width), static_cast<unsigned>(height)))) {
             throw Exception("Can't create overlay map texture");
         }
-        if (!nitcntMapTex.create(unsigned(width), unsigned(height))) {
+        if (!nitcntMapTex.resize(sf::Vector2u(static_cast<unsigned>(width), static_cast<unsigned>(height)))) {
             throw Exception("Can't create normalized iteration count map texture");
         }
-        if (!distMapTex.create(unsigned(width), unsigned(height))) {
+        if (!distMapTex.resize(sf::Vector2u(static_cast<unsigned>(width), static_cast<unsigned>(height)))) {
             throw Exception("Can't create distance map texture");
         }
-        if (!normalReMapTex.create(unsigned(width), unsigned(height))) {
+        if (!normalReMapTex.resize(sf::Vector2u(static_cast<unsigned>(width), static_cast<unsigned>(height)))) {
             throw Exception("Can't create normal(re) map texture");
         }
-        if (!normalImMapTex.create(unsigned(width), unsigned(height))) {
+        if (!normalImMapTex.resize(sf::Vector2u(static_cast<unsigned>(width), static_cast<unsigned>(height)))) {
             throw Exception("Can't create normal(im) map texture");
         }
     }

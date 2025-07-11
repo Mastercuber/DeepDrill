@@ -19,14 +19,12 @@ namespace dd {
 const sf::Image &
 Palette::getImage()
 {
-    const auto &path = Options::palette.image;
-
-    if (path == "") {
+    if (const auto &path = Options::palette.image; path == "") {
 
         constexpr isize width = 8192;
 
         // Compute default palette programmatically
-        palette.create(width, 1);
+        palette.resize(sf::Vector2u(width, 1));
 
         /* Create default palette
          *
@@ -39,11 +37,11 @@ Palette::getImage()
          */
         for (isize i = 0; i < width; i++) {
 
-            double v = double(i) / width * 2 * 3.14159;
-            auto rr = isize(255.0 * (0.5 + 0.5 * cos(v + 0.0 - 2.7)));
-            auto gg = isize(255.0 * (0.5 + 0.5 * cos(v + 0.6 - 2.7)));
-            auto bb = isize(255.0 * (0.5 + 0.5 * cos(v + 1.0 - 2.7)));
-            palette.setPixel(int(i), 0, sf::Color(u8(rr), u8(gg), u8(bb)));
+            const double v = static_cast<double>(i) / width * 2 * 3.14159;
+            const auto rr = static_cast<isize>(255.0 * (0.5 + 0.5 * cos(v + 0.0 - 2.7)));
+            const auto gg = static_cast<isize>(255.0 * (0.5 + 0.5 * cos(v + 0.6 - 2.7)));
+            const auto bb = static_cast<isize>(255.0 * (0.5 + 0.5 * cos(v + 1.0 - 2.7)));
+            palette.setPixel(sf::Vector2u(static_cast<int>(i), 0), sf::Color(static_cast<u8>(rr), static_cast<u8>(gg), static_cast<u8>(bb)));
         }
 
     } else {
@@ -64,8 +62,8 @@ Palette::getTextureImage()
     if (path == "") {
 
         // Compute a transparent image
-        texture.create(1, 1);
-        texture.setPixel(0, 0, sf::Color(0, 0, 0, 0));
+        texture.resize(sf::Vector2u(1, 1));
+        texture.setPixel(sf::Vector2u(0, 0), sf::Color(0, 0, 0, 0));
 
     } else {
 

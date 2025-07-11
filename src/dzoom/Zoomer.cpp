@@ -39,21 +39,19 @@ Zoomer::init()
     recordMode = !Options::files.outputs.empty();
 
     // Create the render window
-    auto mode = sf::VideoMode(unsigned(Options::image.width), unsigned(Options::image.height));
+    auto mode = sf::VideoMode(sf::Vector2u(static_cast<unsigned>(Options::image.width), static_cast<unsigned>(Options::image.height)));
     window.create(mode, "");
 
     // Hide the window in batch mode
     if (Options::flags.batch) window.setVisible(false);
 
     // Preview in real-time if no video is recorded
-    window.setFramerateLimit(recordMode ? 0 : unsigned(Options::video.frameRate));
+    window.setFramerateLimit(recordMode ? 0 : static_cast<unsigned>(Options::video.frameRate));
 }
 
 void
 Zoomer::launch()
 {
-    sf::Event event;
-
     // Initialize parameters
     keyframe = Options::video.startframe;
     zoom.set(1.0);
@@ -73,9 +71,9 @@ Zoomer::launch()
         if (!window.isOpen()) throw UserInterruptException();
 
         // Process all events
-        while (window.pollEvent(event)) {
+        while (const std::optional event = window.pollEvent()) {
 
-            if (event.type == sf::Event::Closed)
+            if (event->is<sf::Event::Closed>())
                 window.close();
         }
 

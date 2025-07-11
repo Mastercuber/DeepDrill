@@ -204,8 +204,13 @@ ImageMaker::save(const string &path, Format format) const
 {
     {
         ProgressIndicator progress("Saving image");
-
-        image.saveToFile(path);
+        if (!image.saveToFile(path)) {
+            log::cout << "file ";
+            log::cout << path;
+            log::cout << " could not be saved";
+            log::cout << log::endl;
+            return;
+        }
     }
     if (Options::flags.verbose) {
 

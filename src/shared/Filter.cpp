@@ -28,7 +28,7 @@ Filter::init(const string &shaderName, sf::Vector2u resolution)
     height = resolution.y;
 
     // Create texture
-    if (!out.create(resolution.x, resolution.y)) {
+    if (!out.resize(resolution)) {
         throw Exception("Can't create render texture");
     }
     out.setSmooth(false);
@@ -41,7 +41,7 @@ Filter::init(const string &shaderName, sf::Vector2u resolution)
     if (path == "") {
         throw Exception("Can't load fragment shader '" + shaderName + "'");
     }
-    if (!shader.loadFromFile(path, sf::Shader::Fragment)) {
+    if (!shader.loadFromFile(path, sf::Shader::Type::Fragment)) {
         throw Exception("Can't load fragment shader '" + path.string() + "'");
     }
 
